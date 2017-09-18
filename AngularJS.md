@@ -345,9 +345,9 @@ app.service('MyService', [function(){
 - restrict : 设置属性的使用形式 参数为一个字符串
 
    - A : Attribute 只能以属性的形式使用
-  - C : Class 只能以类样式名使用
-  - E : Element 只能以自定义标签的形式使用
-  - M : 以注释的方式使用 
+     - C : Class 只能以类样式名使用
+     - E : Element 只能以自定义标签的形式使用
+     - M : 以注释的方式使用 
 
 - replace : 参数为一个布尔值 为true时参数会被用来替换使用自定义指令的外层内容
 
@@ -427,4 +427,40 @@ app.service('MyService', [function(){
       //        : 后面的参数是当前过滤器本身需要的参数
      $scope.result =  $filter('currency')($scope.money,'￥')
 ```
+
+### 路由
+- 根据url中不同的锚点值,在页面显示不同的内容
+#### 路由使用
+
+````Javascript
+//创建模块 引入ng-route模块
+var app = angular.module('myapp',['ngRoute'])
+//配置路由规则(约定什么样的锚点值 对应什么样的内容)
+app.config(['$routeProvider',function($routeProvider){
+  //第一个参数为对应的url中的锚点值
+  //当url的锚点值变为/link时就会把template对应的内容插入到页面拥有ng-view指令的标签中
+  $routeProvider.when('/link',{
+    template:'<p>一行代码</p>',//html模板
+    controller:'demoController',//指定一个控制器的名字
+  }).when('/search',{
+    templateUrl:'search.html'
+  })
+}])
+````
+
+#### 路由参数
+
+- 在原有规则中可以加冒号
+
+- 表示冒号以后的内容是可以变得
+
+- 在控制器中可以通过$routeParams获取page的值
+
+  ​	`$routeProvider.when('/book_list/:page?')`
+
+  ​
+
+#### otherwise
+
+- 不匹配when对应的规则时就会匹配otherwise对应的规则
 
