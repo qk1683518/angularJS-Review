@@ -428,6 +428,3 @@ app.service('MyService', [function(){
      $scope.result =  $filter('currency')($scope.money,'￥')
 ```
 
-```
-
-```
